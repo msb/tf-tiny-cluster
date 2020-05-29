@@ -7,7 +7,7 @@ variable "cluster_name" {
 
 # The cluster's zone (we only specify the zone to keep the cluster to a single node).
 variable "cluster_zone" {
-  default = "497670463628"
+  default = "europe-west1-b"
 }
 
 # The name of the node pool.
