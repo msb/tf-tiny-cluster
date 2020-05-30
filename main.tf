@@ -1,12 +1,8 @@
-locals {
-  location = lookup(local.default, "cluster_zone", "europe-west1-b")
-}
-
 # The cluster with a single node(note that location must be scoped to particular zone or k8s will
 # create nodes over the zones in the region).
 resource "google_container_cluster" "primary" {
-  name     = lookup(local.default, "cluster_name", "tiny-cluster")
-  location = local.location
+  name     = var.cluster_name
+  location = var.cluster_zone
 
   remove_default_node_pool = true
   initial_node_count       = 1
@@ -23,14 +19,14 @@ resource "google_container_cluster" "primary" {
 
 # The cluster's default node pool (sized to 1)
 resource "google_container_node_pool" "primary_preemptible_nodes" {
-  name       = lookup(local.default, "node_pool_name", "node-pool-single-small")
-  location   = local.location
+  name       = var.node_pool_name
+  location   = var.cluster_zone
   cluster    = google_container_cluster.primary.name
   node_count = 1
 
   node_config {
     preemptible  = true
-    machine_type = lookup(local.default, "machine_type", "g1-small")
+    machine_type = var.machine_type
     metadata = {
       disable-legacy-endpoints = "true"
     }

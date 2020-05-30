@@ -1,9 +1,0 @@
-# Copy this to locals.tf and uncomment any values you need to change.
-locals {
-  default = {
-    # cluster_name   = "tiny-cluster"
-    # cluster_zone   = "europe-west1-b"
-    # node_pool_name = "node-pool-single-small"
-    # machine_type   = "g1-small"
-  }
-}
