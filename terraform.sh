@@ -2,7 +2,7 @@
 #
 # Executes terraform in a container, storing any state/config in a volume named by the caller.
 
-USAGE="Usage: tf-gcp-cluster.sh <tf-volume> ..."
+USAGE="Usage: terraform.sh <tf-volume> ..."
 
 # Exit on errors and log commands
 set -xe
@@ -20,4 +20,4 @@ shift
 docker run --interactive --tty --rm \
   -e GOOGLE_BACKEND_CREDENTIALS=/project/service_account_credentials.json \
   --volume $TF_VOLUME-tf:/terraform \
-  --volume $PWD:/project msb140610/terraform-runner:1.0 $@
+  --volume $PWD:/project msb140610/terraform-runner:1.1 $@
