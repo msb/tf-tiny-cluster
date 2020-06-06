@@ -13,10 +13,10 @@ function die() {
     echo -e "\e[31m" $@ "\e[39m" >&2; exit 1
 }
 
-DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" >/dev/null 2>&1 && pwd )"
-
 TF_VOLUME=$1
 [ -z "${TF_VOLUME}" ] && die $USAGE 
+
+DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" >/dev/null 2>&1 && pwd )"
 
 # TF outputs
 CLUSTER_NAME=$($DIR/terraform.sh $TF_VOLUME output cluster_name)
@@ -26,7 +26,7 @@ PROJECT_ID=$($DIR/terraform.sh $TF_VOLUME output project_id)
 # configuration script for kubectl
 cat <<EOF >init.sh
 gcloud config set project $(echo $PROJECT_ID | tr -d '[:space:]')
-gcloud config set auth/credential_file_override /cluster/service_account_credentials.json
+gcloud auth activate-service-account --key-file /cluster/service_account_credentials.json
 gcloud container clusters get-credentials $(echo $CLUSTER_NAME | tr -d '[:space:]') \
   --zone=$(echo $CLUSTER_ZONE | tr -d '[:space:]')
 EOF
