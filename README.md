@@ -40,7 +40,7 @@ module "tiny_cluster" {
 
 See the [`variables.tf`](https://github.com/msb/tf-tiny-cluster/blob/master/variables.tf) for the
 possible parameters. Then to deploy the run the two standard
-[terraform](https://www.terraform.io/docs/index.html) commands `init` and `apply`.
+[terraform](https://www.terraform.io/docs/index.html) commands `init` followed by `apply`.
 
 Once the cluster is created (it will take a few minutes) you will need to manage it - deploy
 applications, etc. There are various ways to do this but our README only covers the CI `kubectl`.
